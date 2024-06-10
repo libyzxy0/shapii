@@ -2,7 +2,7 @@ import { ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
 import type { Product } from '@/types'
 
-export function ProductCard({ id, name, description, price, tags, image, currency }: Product) {
+export function ProductCard({ id, name, description, price, tags, image, currency, created_at }: Product) {
   return (
     <div className="rounded-lg border border-gray-300 shadow-sm mx-6 md:mx-3 p-5 flex justify-center flex-col md:w-[30rem] md:py-3" id={id}>
             <Image className="rounded-lg h-60 object-contain" width={500} height={300} src={image} />
