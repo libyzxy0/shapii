@@ -3,6 +3,7 @@ import { Righteous } from 'next/font/google'
 const righteous = Righteous({ subsets: ['latin'], weight: ["400"] })
 import { ShoppingBag } from 'lucide-react'
 import { ProductCard } from '@/components/ProductCard'
+import Link from 'next/link'
 import { Footer } from '@/components/Footer'
 
 export default function Landing() {
@@ -14,11 +15,14 @@ export default function Landing() {
         <h1 className={`${righteous.className} text-4xl md:text-5xl text-[#FF7200] font-bold`}>Discover More, Pay Less – Shop Smart with Shapii</h1>
         <p className="text-gray-800 mt-5 md:text-md">Are you in search of affordable yet high-quality products? Look no further! Come and explore the diverse range of exceptional items available at Shapii. Shop now and experience the perfect blend of value and quality!</p>
         
-        <button className={`${righteous.className} bg-transparent 
+        <Link href="/products">
+        <button className={`${righteous.className}
         rounded-lg bg-[#FF7200] mt-8 flex flex-row items-center py-2 px-4 text-xl font-medium text-white hover:opacity-90 transition-all duration-200`}>
         <ShoppingBag className="h-5 w-5 mr-2" />
         Shop Now
         </button>
+        </Link>
+        
       </div>
       </section>
       <section id="featured" className="w-full h-full pb-20">
@@ -30,12 +34,12 @@ export default function Landing() {
         <div className="w-full flex flex-col mt-10 md:flex-row md:flex-wrap md:mx-8 space-y-5">
           <ProductCard 
           id="1" 
-          name="Wireless Headphones" 
-          description="High-quality wireless headphones with noise cancellation and 20-hour battery life." 
-          tags={["electronics", "audio", "headphones"]}
-          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScOeme9jQoZMUkqO_3hpfTtd7IdW0_-kAf9lWhT0jcBg&s" 
-          price="99.99" 
-          currency="USD" 
+          name="Mens Casual Premium Slim Fit T-Shirts" 
+          description="Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket." 
+          tags={["clothing", "tshirt", "mens clothing"]}
+          image="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" 
+          price="219.53" 
+          currency="PHP" 
           />
 
         </div>

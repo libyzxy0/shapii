@@ -53,7 +53,7 @@ export function Navbar() {
        </li>
       </ul>
     </nav>
-    <ul className={`${!open ? 'hidden' : 'visible'} md:hidden w-full fixed top-0 mt-16 border-b border-gray-200 py-4 flex flex-col bg-white text-center justify-center space-y-3`}>
+    <ul className={`${!open ? 'hidden' : 'visible'} md:hidden w-full fixed top-0 mt-16 border-b border-gray-200 py-5 flex flex-col bg-white text-center justify-center space-y-2`}>
       <li className="text-gray-700 text-lg font-medium hover:underline hover:text-[#FF7200] hover:cursor-pointer">
          <Link href="/">
            Home
