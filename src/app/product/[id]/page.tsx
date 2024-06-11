@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, ResolvingMetadata } from 'next'
 import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
