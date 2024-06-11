@@ -6,12 +6,12 @@ import { ProductCard } from '@/components/ProductCard'
 export default function Products() {
   return (
     <>
-      <Navbar />
+      <Navbar cart_length={0} />
       <div className="w-full flex justify-center flex-col pb-20">
       
         <div className="w-full px-6 max-w-xl mx-auto">
           <div className="flex items-center py-2.5 mt-8 px-4 rounded-lg border-[1.5px] border-gray-200 hover:border-[#FF7200]">
-            <button className="text-gray-700 flex-shrink-0 flex items-center justify-center">
+            <button className="text-gray-400 flex-shrink-0 flex items-center justify-center">
               <Search className="h-5 w-5" />
             </button>
             <input

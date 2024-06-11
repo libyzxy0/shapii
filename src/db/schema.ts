@@ -1,4 +1,5 @@
 import { uuid, text, boolean, pgTable, timestamp, numeric, jsonb } from "drizzle-orm/pg-core";
+import type { Product } from '@/types'
 
 export var product = pgTable("product", {
   id: uuid('id').primaryKey().defaultRandom().unique().notNull(),
@@ -19,6 +20,6 @@ export var user = pgTable("user", {
   email: text('email').notNull(),
   phone: text('phone').notNull(), 
   role: text('role', { enum: ["user", "admin"]}), 
-  cart: jsonb('cart').$type<string[]>(), 
+  cart: jsonb('cart').$type<Product[]>(), 
   created_at: timestamp('created_at', { mode: "string" }).defaultNow(),
 });

@@ -1,5 +1,6 @@
 import { ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import type { Product } from '@/types'
 
 export function ProductCard({ id, name, description, price, tags, image, currency, created_at }: Product) {
@@ -17,10 +18,12 @@ export function ProductCard({ id, name, description, price, tags, image, currenc
               <p className="text-gray-700 mt-3 truncate">{description}</p>
             </div>
             <div className="flex justify-start mt-4">
+              <Link href={`/product/${id}`}>
               <button className="flex flex-row items-center bg-[#FF7200] text-white py-2 px-4 rounded hover:opacity-90 transition-all duration-200">
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 Buy Now
               </button>
+              </Link>
             </div>
           </div>
   )

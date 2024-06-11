@@ -9,7 +9,7 @@ import { Footer } from '@/components/Footer'
 export default function Landing() {
   return (
     <>
-    <Navbar />
+    <Navbar cart_length={0} />
       <section className="mx-8 md:mx-16 h-[70vh] md:flex md:items-center md:h-screen">
       <div className="mt-28 md:mt-0 w-full md:w-[60%]">
         <h1 className={`${righteous.className} text-4xl md:text-5xl text-[#FF7200] font-bold`}>Discover More, Pay Less – Shop Smart with Shapii</h1>
@@ -27,7 +27,7 @@ export default function Landing() {
       </section>
       <section id="featured" className="w-full h-full pb-20">
         <header className="text-center">
-          <h1 className="text-3xl font-bold text-[#FF7200]">Featured Products</h1>
+          <h1 className={`${righteous.className} text-3xl font-bold text-[#FF7200]`}>Featured Products</h1>
           <p className="mt-2 text-gray-700 md:text-md">See our featured products below.</p>
         </header>
         
