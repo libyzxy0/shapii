@@ -5,6 +5,10 @@ import { Footer } from '@/components/Footer'
 import { Righteous } from 'next/font/google'
 const righteous = Righteous({ subsets: ['latin'], weight: ["400"] })
 
+type Props = {
+  params: { id: string };
+};
+
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata,
