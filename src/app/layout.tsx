@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
+import { Toaster } from 'react-hot-toast';
+
 import React from 'react';
 import './globals.css'
 
-const poppins = Poppins({ subsets: ['latin'], weight: ["400", "500"] })
+const poppins = Poppins({ subsets: ['latin'], weight: ["400", "500"], display: 'swap', adjustFontFallback: false })
 
 export const metadata: Metadata = {
   title: 'Shapii: Order amazing products in just one click!',
@@ -17,7 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+      {children}
+      <Toaster
+      position="top-right"
+      reverseOrder={false}
+      />
+      </body>
     </html>
   )
 }

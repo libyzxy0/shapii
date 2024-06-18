@@ -6,8 +6,9 @@ export type User = {
   email: string;
   phone: string;
   role: 'user' | 'admin';
-  cart: string[];
   created_at: string;
+  carts?: Cart[];
+  products?: Product[];
 }
 
 export type Product = {
@@ -18,5 +19,20 @@ export type Product = {
   tags: string[];
   image: string;
   currency: string;
+  created_at: string;
+  user_id: string;
+  featured: boolean;
+  stocks: number;
+}
+
+export type Cart = {
+  id: string, 
+  name: string, 
+  price: string;
+  image: string;
+  user_id: string;
+  quantity: number;
+  currency: string;
+  product_id: string;
   created_at: string;
 }

@@ -2,8 +2,14 @@ import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { Search, SlidersHorizontal } from 'lucide-react'
 import { ProductCard } from '@/components/ProductCard'
+import { db } from '@/db/drizzle'
+import { products } from '@/db/schema'
 
-export default function Products() {
+/* Force to dont csche the data from database */
+export const dynamic = 'force-dynamic'
+
+export default async function Products() {
+  const productList = await db.select().from(products);
   return (
     <>
       <Navbar cart_length={0} />
@@ -28,46 +34,20 @@ export default function Products() {
         
          <div className="w-full flex flex-col mt-10 md:flex-row md:flex-wrap md:mx-8 space-y-5">
          
+         
+         {productList && productList.map((product, index) => (
           <ProductCard 
-          id="1" 
-          name="Mens Casual Premium Slim Fit T-Shirts" 
-          description="Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket." 
-          tags={["clothing", "tshirt", "mens clothing"]}
-          image="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" 
-          price="219.53" 
-          currency="PHP"
-          created_at="2024"
+          key={index}
+          id={product.id} 
+          name={product.name} 
+          description={product.description} 
+          tags={product.tags}
+          image={product.image} 
+          price={product.price} 
+          currency={product.currency}
+          created_at={product.created_at}
           />
-          <ProductCard 
-          id="1" 
-          name="Mens Casual Premium Slim Fit T-Shirts" 
-          description="Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket." 
-          tags={["clothing", "tshirt", "mens clothing"]}
-          image="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" 
-          price="219.53" 
-          currency="PHP" 
-          created_at="2024"
-          />
-          <ProductCard 
-          id="1" 
-          name="Mens Casual Premium Slim Fit T-Shirts" 
-          description="Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket." 
-          tags={["clothing", "tshirt", "mens clothing"]}
-          image="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" 
-          price="219.53" 
-          currency="PHP" 
-          created_at="2024"
-          />
-          <ProductCard 
-          id="1" 
-          name="Mens Casual Premium Slim Fit T-Shirts" 
-          description="Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket." 
-          tags={["clothing", "tshirt", "mens clothing"]}
-          image="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" 
-          price="219.53" 
-          currency="PHP" 
-          created_at="2024"
-          />
+          ))} 
 
         </div>
         

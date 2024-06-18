@@ -1,17 +1,26 @@
 import { Navbar } from '@/components/Navbar'
-import { Righteous } from 'next/font/google'
-const righteous = Righteous({ subsets: ['latin'], weight: ["400"] })
+import { righteous } from '@/utils/font'
 import { ShoppingBag } from 'lucide-react'
 import { ProductCard } from '@/components/ProductCard'
 import Link from 'next/link'
 import { Footer } from '@/components/Footer'
+import { db } from '@/db/drizzle'
+import { products } from '@/db/schema'
+import { eq } from  'drizzle-orm'
+import { getSession } from '@/actions/auth';
 
-export default function Landing() {
+export const dynamic = 'force-dynamic'
+
+export default async function Landing() {
+  const productList = await db.select().from(products).where(eq(products.featured, true))
+  const user = await getSession({
+    carts: true
+  })
   return (
     <>
-    <Navbar cart_length={0} />
+    <Navbar cart_length={user ? user.carts.length : 0} />
       <section className="mx-8 md:mx-16 h-[70vh] md:flex md:items-center md:h-screen">
-      <div className="mt-28 md:mt-0 w-full md:w-[60%]">
+      <div className="mt-32 md:mt-0 w-full md:w-[60%]">
         <h1 className={`${righteous.className} text-4xl md:text-5xl text-[#FF7200] font-bold`}>Discover More, Pay Less – Shop Smart with Shapii</h1>
         <p className="text-gray-800 mt-5 md:text-md">Are you in search of affordable yet high-quality products? Look no further! Come and explore the diverse range of exceptional items available at Shapii. Shop now and experience the perfect blend of value and quality!</p>
         
@@ -32,17 +41,19 @@ export default function Landing() {
         </header>
         
         <div className="w-full flex flex-col mt-10 md:flex-row md:flex-wrap md:mx-8 space-y-5">
+          {productList && productList.map((product, index) => (
           <ProductCard 
-          id="1" 
-          name="Mens Casual Premium Slim Fit T-Shirts" 
-          description="Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket." 
-          tags={["clothing", "tshirt", "mens clothing"]}
-          image="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" 
-          price="219.53" 
-          currency="PHP" 
-          created_at="2024"
+          key={index}
+          id={product.id} 
+          name={product.name} 
+          description={product.description} 
+          tags={product.tags}
+          image={product.image} 
+          price={product.price} 
+          currency={product.currency}
+          created_at={product.created_at}
           />
-
+          ))} 
         </div>
       </section>
       <Footer />

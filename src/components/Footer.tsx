@@ -1,8 +1,7 @@
 import Link from "next/link";
 import Image from 'next/image'
 import logo from '@/assets/images/shapii.png'
-import { Righteous } from 'next/font/google'
-const righteous = Righteous({ subsets: ['latin'], weight: ["400"] })
+import { righteous } from '@/utils/font'
 
 export const Footer = () => {
   return (

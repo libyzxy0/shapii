@@ -2,6 +2,7 @@ import { ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Product } from '@/types'
+import { righteous } from '@/utils/font'
 
 export function ProductCard({ id, name, description, price, tags, image, currency, created_at }: Product) {
   return (
@@ -14,7 +15,7 @@ export function ProductCard({ id, name, description, price, tags, image, currenc
                 {tags[0]}
                 </div>
               </div>
-              <h1 className="font-bold text-[#FF7200] text-2xl mt-2">{name}</h1>
+              <h1 className={`${righteous.className} font-bold text-[#FF7200] text-2xl mt-2`}>{name}</h1>
               <p className="text-gray-700 mt-3 truncate">{description}</p>
             </div>
             <div className="flex justify-start mt-4">
