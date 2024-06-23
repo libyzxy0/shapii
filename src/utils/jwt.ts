@@ -1,7 +1,7 @@
 import 'dotenv/config'
-import {SignJWT, jwtVerify, type JWTPayload} from 'jose';
+import { SignJWT, jwtVerify } from 'jose';
 import { db } from '@/db/drizzle'
-
+import type { User } from '@/types'
 const secret = process.env.JWT_SECRET_KEY;
 
 type OptionType = {
@@ -9,7 +9,7 @@ type OptionType = {
   products?: boolean;
 }
 
-export const getUser = async (token: string, options: OptionType) => {
+export const getUser = async (token: string, options: OptionType): Promise<User | null> => {
   try {
     const {payload: {id} } = await jwtVerify(token, new TextEncoder().encode(secret));
     const user = await db.query.users.findFirst({

@@ -8,6 +8,7 @@ import { db } from '@/db/drizzle'
 import { products } from '@/db/schema'
 import { eq } from  'drizzle-orm'
 import { getSession } from '@/actions/auth';
+import type { Product } from '@/types'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,10 +19,11 @@ export default async function Landing() {
   })
   return (
     <>
-    <Navbar cart_length={user ? user.carts.length : 0} />
+    <Navbar cart_length={user && user.carts ? user.carts.length : 0} />
       <section className="mx-8 md:mx-16 h-[70vh] md:flex md:items-center md:h-screen">
       <div className="mt-32 md:mt-0 w-full md:w-[60%]">
         <h1 className={`${righteous.className} text-4xl md:text-5xl text-[#FF7200] font-bold`}>Discover More, Pay Less – Shop Smart with Shapii</h1>
+        
         <p className="text-gray-800 mt-5 md:text-md">Are you in search of affordable yet high-quality products? Look no further! Come and explore the diverse range of exceptional items available at Shapii. Shop now and experience the perfect blend of value and quality!</p>
         
         <Link href="/products">
@@ -47,11 +49,10 @@ export default async function Landing() {
           id={product.id} 
           name={product.name} 
           description={product.description} 
-          tags={product.tags}
+          tags={product.tags ? product.tags : []}
           image={product.image} 
           price={product.price} 
           currency={product.currency}
-          created_at={product.created_at}
           />
           ))} 
         </div>

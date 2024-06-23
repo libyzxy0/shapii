@@ -1,11 +1,18 @@
 'use client';
 
-import { Trash2, Plus, Minus } from 'lucide-react'
+import { Plus, Minus } from 'lucide-react'
 import Image from 'next/image'
-import type { Cart } from '@/types';
 import { righteous } from '@/utils/font'
-import { useState } from 'react';
 import { changeQty } from '@/actions/cart'
+
+type CartCardType = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+  currency: string;
+}
 
 export function CartCard({
   id,
@@ -13,20 +20,11 @@ export function CartCard({
   price, 
   image, 
   quantity,
-  currency, 
-  _created_at
-}: Cart) {
+  currency
+}: CartCardType) {
   
-  const [qty, setQty] = useState(quantity);
   const handleQty = async (a: string) => {
     await changeQty(id, a);
-    if(qty < 1 && a !== 'decrement') {
-      if(a == 'increment') {
-        setQty(qty + 1);
-      } else {
-        setQty(qty - 1);
-      }
-    }
   }
   
   return (
@@ -43,7 +41,7 @@ export function CartCard({
           <Minus className="h-5 w-5" />
         </button>
         <span className="font-medium text-gray-800 text-xl">
-          {qty} 
+          {quantity} 
         </span>
         <button onClick={() => handleQty('increment')} className="rounded px-0.5 text-white bg-[#FF7200] hover:opacity-90 transition-all duration-200">
           <Plus className="h-5 w-5" />

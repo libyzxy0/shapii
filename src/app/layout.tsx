@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import React from 'react';
 import './globals.css'
 
-const poppins = Poppins({ subsets: ['latin'], weight: ["400", "500"], display: 'swap', adjustFontFallback: false })
+const poppins = Poppins({ subsets: ['latin'], weight: ["400", "500"], display: 'swap' })
 
 export const metadata: Metadata = {
   title: 'Shapii: Order amazing products in just one click!',

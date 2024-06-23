@@ -5,6 +5,7 @@ import { users } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { cookies } from 'next/headers'
 import { createToken, getUser as getUserFromToken } from '@/utils/jwt';
+import type { User } from '@/types'
 
 type LoginType = {
   email: string;
@@ -23,22 +24,17 @@ export const login = async (data: LoginType) => {
   if(!user) return { error: "User not found" }
   if(user.password === data.password) {
     const authtoken = await createToken({ email: user.email, id: user.id });
-    cookies().set({
-      name: 'authtoken',
-      value: authtoken,
-      httpOnly: true,
-      path: '/',
-    })
+    cookies().set('authtoken', authtoken)
     return { message: "Login successfully" } 
   } else {
     return { error: 'Incorrect password!!?!' }
   }
 }
 
-export const getSession = async (options: OptionType) => {
+export const getSession = async (options: OptionType): Promise<User | null> => {
   try {
     const authtoken = cookies().get('authtoken')?.value || 'hatdoggsspoginiliby';
-    const user = await getUserFromToken(authtoken, options);
+    const user: User | null = await getUserFromToken(authtoken, options);
     return user;
   } catch (error: any) {
     console.log(error)

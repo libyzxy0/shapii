@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
@@ -14,9 +14,7 @@ type Props = {
 };
 
 export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+  { params }: Props): Promise<Metadata> {
   try {
     const product = (await db.select().from(products).where(eq(products.id, params.id)))[0]
     return {
@@ -34,7 +32,9 @@ export async function generateMetadata(
 export default async function ProductDetails({ params }) {
   let product;
   
-  const user = await getSession();
+  const user = await getSession({
+    carts: true
+  });
   
   try {
     const result = (await db.select().from(products).where(eq(products.id, params.id)))[0]
@@ -44,11 +44,13 @@ export default async function ProductDetails({ params }) {
     console.error(error);
   }
   
-  const isProductAddedOnCart = user?.carts.find((p) => p.id === product.id) ?? false;
+  const isProductAddedOnCart = user?.carts?.find((p) => p.product_id === product.id) ?? false;
+  
+  console.log(user, product)
   
   return (
     <>
-    <Navbar cart_length={0} />
+    <Navbar cart_length={user && user.carts ? user.carts.length : 0} />
     <div className="mt-5 mx-6">
       <Image className="rounded-lg h-60 object-contain border border-gray-200 shadow-sm" width={500} height={300} src={product.image} alt={product.name} />
       <div className="flex flex-row flex-wrap mt-4 space-x-2 justify-start">

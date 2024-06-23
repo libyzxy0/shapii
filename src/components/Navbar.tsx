@@ -15,6 +15,7 @@ export function Navbar({ cart_length, admin, onToggle }: { cart_length?: number,
       onToggle(!open);
     }
   }
+  const logged = false;
   return (
     <>
     <nav className={`h-16 w-full z-40 sticky top-0 bg-white flex items-center justify-between ${admin ? 'border-b border-gray-200' : !open ? 'border-b border-gray-200' : 'border-none'}`}>
@@ -82,7 +83,7 @@ export function Navbar({ cart_length, admin, onToggle }: { cart_length?: number,
      )}
     </nav>
     {!admin && (
-    <ul className={`${!open ? 'hidden' : 'visible'} z-40 md:hidden w-full fixed top-0 mt-16 border-b border-gray-200 py-5 flex flex-col bg-white text-center justify-center space-y-2`}>
+    <ul className={`${!open ? 'hidden' : 'visible'} z-40 md:hidden w-full fixed top-0 mt-16 border-b border-gray-200 py-5 flex flex-col bg-white text-center justify-center space-y-2 px-4`}>
       <li className="text-gray-700 text-lg font-medium hover:underline hover:text-[#FF7200] hover:cursor-pointer">
          <Link href="/">
            Home
@@ -98,9 +99,13 @@ export function Navbar({ cart_length, admin, onToggle }: { cart_length?: number,
            About Us
          </Link>
        </li>
-       <li className="text-gray-700 text-lg font-medium hover:underline hover:text-[#FF7200] hover:cursor-pointer">
-         <Link href="/contact">
-           Contact Us
+       <li className="text-gray-700 text-lg font-medium bg-[#FF7200] rounded-lg py-1.5 text-white">
+         <Link href={logged ? '/products' : '/login'}>
+           {logged ? (
+             <span>Shop Now</span>
+           ) : (
+             <span>Sign In</span>
+           )}
          </Link>
        </li>
     </ul>

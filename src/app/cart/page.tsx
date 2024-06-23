@@ -1,16 +1,29 @@
-import { ShoppingCart, Trash2, Plus, Minus } from 'lucide-react'
+import { ShoppingCart } from 'lucide-react'
 import { Navbar } from '@/components/Navbar'
 import { CartCard } from '@/components/CartCard'
 import { getSession } from '@/actions/auth';
+import type { User, Cart } from '@/types'
+
+const calculateTotalPurchase = (user: User | null): string => {
+  if (user && Array.isArray(user.carts)) {
+    const total = user.carts.reduce((total: number, product: Cart) => {
+      return total + (product.quantity * product.price);
+    }, 0);
+    return total.toFixed(2);
+  }
+  return "0.00";
+};
 
 export default async function CartPage() {
   const user = await getSession({
     carts: true
   })
+  const totalPurchase = calculateTotalPurchase(user)
   
-  const totalPurchase = user.carts ? user.carts.reduce((total, product) => {
-    return total + (product.quantity * product.price);
-  }, 0) : 0;
+  const carts = user && user.carts && user.carts.sort((a, b) => {
+  return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
+  
   return (
     <>
     <Navbar />
@@ -20,16 +33,13 @@ export default async function CartPage() {
     
     
     <div className="mx-6 mt-5 flex flex-col justify-center space-y-4 pb-28 md:mx-0 md:flex-row md:flex-wrap">
-      {user && user.carts.map((product, index) => (
+      {carts && carts.map((product, index) => (
         <CartCard 
         key={index}
         id={product.id} 
         name={product.name} 
         price={product.price} 
-        user_id={product.user_id}
-        product_id={product.id}
         currency={product.currency}
-        created_at={product.created_at} 
         quantity={product.quantity} 
         image={product.image} />
       ))}
@@ -40,8 +50,8 @@ export default async function CartPage() {
       <div className="mx-6 flex flex-col">
         <p className="font-medium text-sm text-gray-700">Total Purchase</p>
         <h1 className="text-[#FF7200] font-bold text-xl">
-        {user.carts.length > 0 ? (
-          <span>{user.carts[0]?.currency} {totalPurchase}</span>
+        {carts && carts.length > 0 ? (
+          <span>{carts[0]?.currency} {totalPurchase}</span>
         ) : (
           <span>0</span>
         )}

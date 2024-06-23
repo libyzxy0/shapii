@@ -1,7 +1,6 @@
 'use client';
 
-import { FormEvent } from 'react'
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { righteous } from '@/utils/font'
 import { Eye, EyeOff } from "lucide-react";
 import { Footer } from '@/components/Footer'
@@ -9,7 +8,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import logo from '@/assets/images/shapii.png'
 import { login } from '@/actions/auth'
-import { useAction } from 'next-safe-action/hooks'
 import { LoaderCircle } from 'lucide-react'
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation'
@@ -26,7 +24,7 @@ export default function LoginPage() {
       setPending(true);
       const res = await login({ email, password });
       if(res?.error) return toast.error(res.error);
-      toast.success(res.message);
+      res.message && toast.success(res.message);
       await new Promise(resolve => setTimeout(resolve, 1000));
       router.push('/');
     } catch (error) {

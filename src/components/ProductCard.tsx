@@ -1,10 +1,18 @@
 import { ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { Product } from '@/types'
 import { righteous } from '@/utils/font'
 
-export function ProductCard({ id, name, description, price, tags, image, currency, created_at }: Product) {
+type ProductType = {
+  id: string;
+  name: string | null;
+  description: string | null;
+  price: number | null;
+  tags: string[] | null;
+  image: string | null;
+  currency: string | null;
+}
+export function ProductCard({ id, name, description, price, tags, image, currency }: ProductType) {
   return (
     <div className="rounded-lg border border-gray-300 shadow-sm mx-6 md:mx-3 p-5 flex justify-center flex-col md:w-[30rem] md:py-3" id={id}>
             <Image className="rounded-lg h-60 object-contain" width={500} height={300} src={image} alt={name} />

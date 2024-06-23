@@ -1,3 +1,5 @@
+/*
+
 import { db } from '@/db/drizzle'
 import { products, users, carts } from '@/db/schema'
 
@@ -44,7 +46,7 @@ import { products, users, carts } from '@/db/schema'
     quantity: 1
   })
   */
- 
+ /*
   const result = await db.query.users.findMany({
     with: {
       carts: true, 
@@ -54,3 +56,4 @@ import { products, users, carts } from '@/db/schema'
   console.log(result);
   
 })();
+*/

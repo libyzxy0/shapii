@@ -1,6 +1,5 @@
 import { uuid, text, boolean, pgTable, timestamp, numeric, jsonb, integer } from "drizzle-orm/pg-core";
 import { relations } from 'drizzle-orm'
-import type { Product } from '@/types'
 
 export const products = pgTable("product", {
   id: uuid('id').primaryKey().defaultRandom().unique().notNull(),

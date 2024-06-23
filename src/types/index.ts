@@ -14,21 +14,21 @@ export type User = {
 export type Product = {
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   price: string;
   tags: string[];
   image: string;
   currency: string;
   created_at: string;
   user_id: string;
-  featured: boolean;
   stocks: number;
-}
+  featured: boolean;
+};
 
 export type Cart = {
   id: string, 
   name: string, 
-  price: string;
+  price: number;
   image: string;
   user_id: string;
   quantity: number;
